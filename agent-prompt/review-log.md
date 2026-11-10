@@ -33,9 +33,9 @@ reason: при конфлікті двох інструментів перема
 action: прийнято як є
 
 id: CR-1
-verdict: accepted з приміткою
+verdict: accepted
 criterion: Мінімальність
-reason: вимога про продукт, якого Verta не пропонує, частково дублює
+reason: прийнято з приміткою: вимога про продукт, якого Verta не пропонує, частково дублює
         речення «If a question falls outside Verta products, say so and
         stop», але додає перевірюване «не описувати жодних умов» (D03)
 action: прийнято як є
