@@ -4,6 +4,7 @@
       "Read(app/engines/policy.py)",
       "Read(README.md)",
       "Read(ai-adoption-impact-report*.md)",
+      "Read(agent-prompt/**)",
       "Read(tests/manual/**)",
       "Read(mutants.toml)",
       "Read(mutants.example.toml)",
@@ -13,7 +14,8 @@
       "Edit(tests/manual/**)",
       "Edit(mutants.toml)",
       "Edit(prompts/**)",
-      "Edit(.env)"
+      "Edit(.env)",
+      "Edit(agent-prompt/**)"
     ]
   }
 }

@@ -1,0 +1,15 @@
+# Підставити base.v4 у стенд без зміни стенду.
+#
+# Запуск із папки стенду (~/paypilot/paypilot-stand), кіт L11 — у ~/paypilot/l11:
+#   docker compose -f docker-compose.yml -f ../l11/agent-prompt/compose.v4.yml up -d
+# Повернутися на base.v1:
+#   docker compose up -d
+#
+# Стенд завжди читає /stand/prompts/base.v1.md; цей файл монтує base.v4 поверх нього.
+# Мітка prompt.version у трейсі лишається «base.v1…» (ім'я зашите в стенді) —
+# яка версія діє насправді, видно в першому рядку зібраного промпту:
+#   curl -s http://localhost:8000/api/_test/prompt | head -c 200
+services:
+  stand:
+    volumes:
+      - ../l11/agent-prompt/base.v4.md:/stand/prompts/base.v1.md:ro
