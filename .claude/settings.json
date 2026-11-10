@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "deny": [
+      "Edit(app/**)",
+      "Edit(tests/manual/**)",
+      "Read(tests/manual/**)",
+      "Edit(mutants.toml)",
+      "Read(mutants.toml)",
+      "Read(mutants.example.toml)",
+      "Edit(prompts/**)",
+      "Read(reports/**)",
+      "Edit(.env)",
+      "Read(.env)"
+    ]
+  }
+}

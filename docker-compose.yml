@@ -1,0 +1,15 @@
+# Запуск без локального Python: усе в контейнері.
+#   docker compose run --rm kit pytest tests/manual
+#   docker compose run --rm kit python tools/run_mutants.py --set manual
+services:
+  kit:
+    image: python:3.12-slim
+    working_dir: /kit
+    volumes:
+      - .:/kit
+    environment:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+      PIP_ROOT_USER_ACTION: ignore
+    entrypoint: ["sh", "-c", "pip install -q -r requirements.txt && git config --global --add safe.directory /kit 2>/dev/null; exec \"$@\"", "--"]
+    command: ["pytest", "tests/manual"]
