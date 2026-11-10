@@ -143,7 +143,8 @@ def main() -> int:
         info = git_info(mutants_path)
         if not info.get("no_git") and (info["uncommitted"] or not info["committed_at"]):
             print("Список ще не закомічено. Закомітьте його до першого прогону:\n"
-                  "  git add mutants.toml && git commit -m \"L11: список мутантів\"")
+                  "  git add mutants.toml\n"
+                  "  git commit -m \"L11: список мутантів\"")
         return 0
     if not args.set:
         ap.error("потрібен --set manual|generated|all або --check")
@@ -223,7 +224,7 @@ def main() -> int:
     out_dir = ROOT / "reports"
     out_dir.mkdir(exist_ok=True)
     out_file = out_dir / f"mutants-{args.set}-{started:%Y%m%d-%H%M%S}.json"
-    out_file.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    out_file.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(f"Звіт: {out_file.relative_to(ROOT)}")
     return 0
 

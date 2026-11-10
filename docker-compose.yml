@@ -3,7 +3,8 @@
 #   docker compose run --rm kit python tools/run_mutants.py --set manual
 services:
   kit:
-    image: python:3.12-slim
+    # повний образ: у ньому є git, без якого звіти мутантів не фіксують коміт списку
+    image: python:3.12
     working_dir: /kit
     volumes:
       - .:/kit

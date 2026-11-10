@@ -68,6 +68,7 @@ claude -p "$(cat prompts/generation-prompt.md)" --model sonnet \
 
 ```powershell
 # Windows PowerShell
+[Console]::OutputEncoding = [Text.Encoding]::UTF8
 claude -p (Get-Content prompts/generation-prompt.md -Raw -Encoding UTF8) --model sonnet `
   --allowedTools "Read,Write,Glob,Grep" --output-format json > reports/generation.json
 ```
@@ -78,7 +79,7 @@ claude -p (Get-Content prompts/generation-prompt.md -Raw -Encoding UTF8) --model
 python tools/generation_summary.py reports/generation.json
 ```
 
-Генерація триває 3–4 хвилини й коштує близько $0.70 з вашого ключа (заміряно на `sonnet`, 10.11.2026). Результат щоразу трохи інший: кількість тестів і вбитих мутантів у вас можуть відрізнятися від прикладів у темі.
+Генерація триває 2–4 хвилини й коштує $0.40–0.70 з вашого ключа (чотири прогони на `sonnet`, 10.11.2026). Результат щоразу трохи інший: кількість тестів і вбитих мутантів у вас можуть відрізнятися від прикладів у темі.
 
 ## Команди за кроками
 
