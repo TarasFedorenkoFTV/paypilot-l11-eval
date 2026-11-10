@@ -43,6 +43,34 @@ pip install -r requirements.txt
 docker compose run --rm kit pytest tests/manual
 ```
 
+## Генерація (крок 4)
+
+Асистент — Claude Code з вашим `ANTHROPIC_API_KEY`. Встановлення: `npm install -g @anthropic-ai/claude-code` (потрібен Node.js 18+).
+
+Що бачить асистент, задає `.claude/settings.json` у цьому кіті: він читає `app/engines/fx.py`, але **не бачить** таблиці тарифів `app/engines/policy.py`, вашого ручного набору, списку мутантів і цього README. Так і задумано: тарифи — це вимоги, а не код, і асистент їх не знає. Змінювати модуль і ваші файли він не може.
+
+Запуск із кореня кіта, промпт береться з вашого файлу:
+
+```bash
+# macOS / Linux / WSL / Git Bash
+claude -p "$(cat prompts/generation-prompt.md)" --model sonnet \
+  --allowedTools "Read,Write,Glob,Grep" --output-format json > reports/generation.json
+```
+
+```powershell
+# Windows PowerShell
+claude -p (Get-Content prompts/generation-prompt.md -Raw) --model sonnet `
+  --allowedTools "Read,Write,Glob,Grep" --output-format json > reports/generation.json
+```
+
+Підсумок для шаблону (час машини, вартість, кількість тестів):
+
+```bash
+python tools/generation_summary.py reports/generation.json
+```
+
+Генерація триває 3–4 хвилини й коштує близько $0.70 з вашого ключа (заміряно на `sonnet`, 10.11.2026). Результат щоразу трохи інший: кількість тестів і вбитих мутантів у вас можуть відрізнятися від прикладів у темі.
+
 ## Команди за кроками
 
 | Крок | Команда |

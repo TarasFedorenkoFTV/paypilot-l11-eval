@@ -1,16 +1,18 @@
 {
   "permissions": {
     "deny": [
-      "Edit(app/**)",
-      "Edit(tests/manual/**)",
+      "Read(app/engines/policy.py)",
+      "Read(README.md)",
       "Read(tests/manual/**)",
-      "Edit(mutants.toml)",
       "Read(mutants.toml)",
       "Read(mutants.example.toml)",
-      "Edit(prompts/**)",
       "Read(reports/**)",
-      "Edit(.env)",
-      "Read(.env)"
+      "Read(.env)",
+      "Edit(app/**)",
+      "Edit(tests/manual/**)",
+      "Edit(mutants.toml)",
+      "Edit(prompts/**)",
+      "Edit(.env)"
     ]
   }
 }
