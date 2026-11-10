@@ -5,6 +5,7 @@
       "Read(README.md)",
       "Read(ai-adoption-impact-report*.md)",
       "Read(agent-prompt/**)",
+      "Read(prompts/**)",
       "Read(tests/manual/**)",
       "Read(mutants.toml)",
       "Read(mutants.example.toml)",

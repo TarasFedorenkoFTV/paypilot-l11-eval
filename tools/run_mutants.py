@@ -223,7 +223,8 @@ def main() -> int:
     }
     out_dir = ROOT / "reports"
     out_dir.mkdir(exist_ok=True)
-    out_file = out_dir / f"mutants-{args.set}-{started:%Y%m%d-%H%M%S}.json"
+    stamp = started.astimezone(dt.timezone.utc)
+    out_file = out_dir / f"mutants-{args.set}-{stamp:%Y%m%d-%H%M%S}Z.json"  # UTC: однаково на хості й у Docker
     out_file.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(f"Звіт: {out_file.relative_to(ROOT)}")
     return 0
