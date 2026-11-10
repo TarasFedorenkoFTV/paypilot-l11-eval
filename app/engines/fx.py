@@ -1,4 +1,4 @@
-""
+"""Валютні котирування: курс, спред і безкоштовний ліміт."""
 from dataclasses import dataclass, asdict
 
 from app.engines import policy
@@ -35,7 +35,7 @@ def quote(amount: float, from_currency: str, to_currency: str,
           tier: str, allowance_used_eur: float = 0.0,
           spread_pct_override: float | None = None,
           partial_allowance: bool = False) -> FxQuote:
-    ""
+    """Котирування конвертації з урахуванням тіру й ліміту."""
     if tier not in policy.TIERS:
         raise ValueError(f"Unknown tier: {tier}")
     rate = mid_rate(from_currency, to_currency)

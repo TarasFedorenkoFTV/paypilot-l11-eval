@@ -34,7 +34,7 @@ action: прийнято як є
 
 id: CR-1
 verdict: accepted
-criterion: Мінімальність
+criterion: —
 reason: прийнято з приміткою: вимога про продукт, якого Verta не пропонує, частково дублює
         речення «If a question falls outside Verta products, say so and
         stop», але додає перевірюване «не описувати жодних умов» (D03)
