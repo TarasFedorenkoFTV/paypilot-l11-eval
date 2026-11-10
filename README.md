@@ -15,7 +15,8 @@
 | `prompts/` | сюди кладете критерії й промпт генерації | 3 |
 | `tests/generated/` | сюди асистент пише згенеровані тести | 4 |
 | `tests/rewritten/` | сюди ви кладете тести, переписані з відхилених | 5 |
-| `tools/run_mutants.py` | прогін списку мутантів на наборі | 6 |
+| `tools/run_mutants.py` | прогін списку мутантів на наборі | 2, 6 |
+| `tools/generation_summary.py` | підсумок генерації: час машини, вартість, кількість тестів | 4 |
 | `agent-prompt/` | base.v4 системного промпту PayPilot: чернетка асистента, журнал рев'ю, прийнята версія, як підставити у стенд | теорія, L12 |
 | `ai-adoption-impact-report.template.md` | шаблон артефакту: скопіюйте в `ai-adoption-impact-report.md` | 1–6, ДЗ |
 | `.claude/settings.json` | забороняє асистентові змінювати модуль, ваш набір, список мутантів і промпт | 4 |
@@ -23,8 +24,9 @@
 ## Підготовка
 
 ```bash
-git clone <URL кіта> ~/paypilot/l11
+git clone https://github.com/TarasFedorenkoFTV/paypilot-l11-eval ~/paypilot/l11
 cd ~/paypilot/l11
+# Windows PowerShell: git clone https://github.com/TarasFedorenkoFTV/paypilot-l11-eval "$HOME\paypilot\l11"; cd "$HOME\paypilot\l11"
 ```
 
 Далі один із двох способів.
@@ -35,6 +37,8 @@ cd ~/paypilot/l11
 python -m venv .venv
 # macOS / Linux / WSL:
 source .venv/bin/activate
+# Git Bash на Windows:
+source .venv/Scripts/activate
 # Windows PowerShell:
 .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
@@ -64,7 +68,7 @@ claude -p "$(cat prompts/generation-prompt.md)" --model sonnet \
 
 ```powershell
 # Windows PowerShell
-claude -p (Get-Content prompts/generation-prompt.md -Raw) --model sonnet `
+claude -p (Get-Content prompts/generation-prompt.md -Raw -Encoding UTF8) --model sonnet `
   --allowedTools "Read,Write,Glob,Grep" --output-format json > reports/generation.json
 ```
 
@@ -88,7 +92,9 @@ python tools/generation_summary.py reports/generation.json
 | 6. Мутанти на згенерованому наборі | `python tools/run_mutants.py --set generated` |
 | 6. Мутанти на об'єднаному наборі | `python tools/run_mutants.py --set all` |
 
-Кожен прогін мутантів друкує розклад по класах і перелік вцілілих та зберігає звіт у `reports/`.
+Кожен прогін мутантів друкує розклад по класах і перелік вцілілих та зберігає звіт у `reports/`. Звіти комітьте: за ними ментор бачить, що список мутантів закомічено раніше за перший прогін.
+
+У Windows PowerShell 5.1 немає `&&`: замість `git add X && git commit -m "…"` пишіть дві команди через `;` або окремими рядками.
 
 Відсоток покриття залежить від версії Python (на 3.12 і 3.14 той самий набір дає різне число). Порівнюйте два свої числа між собою. Mutation score від версії не залежить.
 
