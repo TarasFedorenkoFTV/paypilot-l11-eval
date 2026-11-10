@@ -192,7 +192,7 @@ def main() -> int:
             rows.append({"id": m["id"], "class": m["class"],
                          "description": m.get("description", ""),
                          "killed": not survived})
-            print(f"  {m['id']:<6} {'вбито ' if not survived else 'ВИЖИВ'}  "
+            print(f"  {m['id']:<6} {'вбито' if not survived else 'ВИЖИВ':<6} "
                   f"[{m['class']}] {m.get('description', '')}")
 
     by_class: "OrderedDict[str, dict]" = OrderedDict()

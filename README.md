@@ -40,6 +40,8 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+Windows PowerShell: якщо `Activate.ps1` або `claude` падає з «running scripts is disabled on this system», один раз виконайте `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` і відкрийте термінал заново.
+
 **Без Python, через Docker** — перед кожною командою нижче додайте `docker compose run --rm kit`:
 
 ```bash
