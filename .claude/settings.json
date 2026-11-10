@@ -3,6 +3,7 @@
     "deny": [
       "Read(app/engines/policy.py)",
       "Read(README.md)",
+      "Read(ai-adoption-impact-report*.md)",
       "Read(tests/manual/**)",
       "Read(mutants.toml)",
       "Read(mutants.example.toml)",
