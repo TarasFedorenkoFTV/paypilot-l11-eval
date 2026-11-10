@@ -20,7 +20,13 @@ def main() -> int:
     path = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "reports" / "generation.json"
     if not path.exists():
         sys.exit(f"Немає файлу {path}. Запустіть генерацію з  --output-format json > {path}")
-    data = json.loads(path.read_text(encoding="utf-8"))
+    raw = path.read_bytes()
+    # Windows PowerShell 5.1 пише `>` в UTF-16; інші оболонки — в UTF-8
+    if raw.startswith((b"\xff\xfe", b"\xfe\xff")):
+        text = raw.decode("utf-16")
+    else:
+        text = raw.decode("utf-8-sig")
+    data = json.loads(text)
     if data.get("is_error"):
         sys.exit(f"Генерація завершилась помилкою: {data.get('result')}")
 

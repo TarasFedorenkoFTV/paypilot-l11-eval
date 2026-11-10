@@ -116,8 +116,10 @@ def git_info(path: Path) -> dict:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--set", choices=SETS, required=True,
+    ap.add_argument("--set", choices=SETS,
                     help="manual · generated · all (об'єднаний)")
+    ap.add_argument("--check", action="store_true",
+                    help="лише перевірити список мутантів, без прогону (крок 2)")
     ap.add_argument("--mutants", default="mutants.toml",
                     help="файл списку мутантів (за замовчуванням mutants.toml)")
     args = ap.parse_args()
@@ -128,6 +130,23 @@ def main() -> int:
                  f"у mutants.toml і впишіть свої 12 мутантів (крок 2).")
     mutants = load_mutants(mutants_path)
     check_applicable(mutants)
+    if args.check:
+        classes = OrderedDict()
+        for m in mutants:
+            classes[m["class"]] = classes.get(m["class"], 0) + 1
+        print(f"Список {mutants_path.name}: {len(mutants)} мутантів, кожен "
+              f"застосовується до коду рівно в одному місці.")
+        for name, n in classes.items():
+            print(f"  {name}: {n}")
+        if len(mutants) != 12 or any(n != 3 for n in classes.values()) or len(classes) != 4:
+            print("УВАГА: для лабораторної потрібно 12 мутантів, по 3 у кожному з 4 класів.")
+        info = git_info(mutants_path)
+        if not info.get("no_git") and (info["uncommitted"] or not info["committed_at"]):
+            print("Список ще не закомічено. Закомітьте його до першого прогону:\n"
+                  "  git add mutants.toml && git commit -m \"L11: список мутантів\"")
+        return 0
+    if not args.set:
+        ap.error("потрібен --set manual|generated|all або --check")
     paths = SETS[args.set]
     for p in paths:
         if not any((ROOT / p).glob("test_*.py")):

@@ -14,6 +14,7 @@
 | `mutants.example.toml` | зразок списку мутантів, один мутант заповнено | 2 |
 | `prompts/` | сюди кладете критерії й промпт генерації | 3 |
 | `tests/generated/` | сюди асистент пише згенеровані тести | 4 |
+| `tests/rewritten/` | сюди ви кладете тести, переписані з відхилених | 5 |
 | `tools/run_mutants.py` | прогін списку мутантів на наборі | 6 |
 | `.claude/settings.json` | забороняє асистентові змінювати модуль, ваш набір, список мутантів і промпт | 4 |
 
@@ -76,7 +77,7 @@ python tools/generation_summary.py reports/generation.json
 | Крок | Команда |
 | --- | --- |
 | 1. Тести зелені на оригінальному модулі | `pytest tests/manual` |
-| 2. Список мутантів застосовується до коду | `python tools/run_mutants.py --set manual` (після того, як є хоч один тест) |
+| 2. Список мутантів застосовується до коду | `python tools/run_mutants.py --check` |
 | 4. Покриття ручного набору | `pytest tests/manual --cov=app.engines.fx` |
 | 4. Покриття згенерованого набору | `pytest tests/generated --cov=app.engines.fx` |
 | 6. Мутанти на ручному наборі | `python tools/run_mutants.py --set manual` |
