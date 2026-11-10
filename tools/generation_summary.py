@@ -28,7 +28,8 @@ def main() -> int:
         text = raw.decode("utf-8-sig")
     data = json.loads(text)
     if data.get("is_error"):
-        sys.exit(f"Генерація завершилась помилкою: {data.get('result')}")
+        print(f"УВАГА: генерація завершилась помилкою: {data.get('result')}")
+        print("Якщо файл тестів повний і pytest tests/generated зелений, набір можна брати; числа нижче — до моменту помилки.\n")
 
     tests = 0
     for f in (ROOT / "tests" / "generated").glob("test_*.py"):
